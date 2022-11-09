@@ -1,5 +1,5 @@
 tinyc:par.o lex.o symbol.o
-	g++ -o tinyc par.o lex.o  symbol.o -ll -ly
+	g++ -o tinyc par.o lex.o  symbol.o -ll
 symbol.o:symboltable.cpp
 	g++ -c symboltable.cpp -o symbol.o
 par.o:y.tab.c

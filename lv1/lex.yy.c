@@ -460,8 +460,9 @@ char *yytext;
     	#include "symboltable.hh"
 	#include "y.tab.h"
   	list<token *> tok;
-#line 464 "lex.yy.c"
+	int lineno=0;
 #line 465 "lex.yy.c"
+#line 466 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -678,9 +679,9 @@ YY_DECL
 		}
 
 	{
-#line 11 "tinyl1.l"
+#line 12 "tinyl1.l"
 
-#line 684 "lex.yy.c"
+#line 685 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -739,22 +740,22 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 12 "tinyl1.l"
+#line 13 "tinyl1.l"
 {tok.push_back(new token("int"));cout<<yytext<<endl;yylval.dt=INT; return INTEGER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 13 "tinyl1.l"
+#line 14 "tinyl1.l"
 {tok.push_back(new token("return"));return RETURN;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 14 "tinyl1.l"
+#line 15 "tinyl1.l"
 {tok.push_back(new token("print"));return PRINT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 15 "tinyl1.l"
+#line 16 "tinyl1.l"
 {cout<<yytext<<endl;
                         yylval.cval=new string(yytext);
 			tok.push_back(new token(*yylval.cval));                     
@@ -762,7 +763,7 @@ return ID;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 19 "tinyl1.l"
+#line 20 "tinyl1.l"
 {cout<<yytext<<endl;
 tok.push_back(new token(yytext)); 
 yylval.ival=atoi(yytext);
@@ -770,31 +771,31 @@ return NUM;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 23 "tinyl1.l"
+#line 24 "tinyl1.l"
 {tok.push_back(new token(yytext));cout<<yytext<<endl; return yytext[0];}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 24 "tinyl1.l"
+#line 25 "tinyl1.l"
 {}
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 25 "tinyl1.l"
-{}
+#line 26 "tinyl1.l"
+{lineno++;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 26 "tinyl1.l"
+#line 27 "tinyl1.l"
 {cout<<"print"<<endl;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 27 "tinyl1.l"
+#line 28 "tinyl1.l"
 ECHO;
 	YY_BREAK
-#line 798 "lex.yy.c"
+#line 799 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1799,7 +1800,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 27 "tinyl1.l"
+#line 28 "tinyl1.l"
 
 
 

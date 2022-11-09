@@ -6,9 +6,16 @@ using namespace std;
 void SymbolTable::print(ostream &f)
 {
 	list<SymbolTableEntry *>::iterator it;
-	for(it=varTable.begin();it!=varTable.end();++it){
-		f<<(*it)->getVariableName()<<endl;
-	}	
+ 	for(it=varTable.begin();it!=varTable.end();++it){
+                f<<"Variable Name:";f.width(8);
+                f<<(*it)->getVariableName()<<"\t\t";
+                f<<"DataType:";
+                if((*it)->getDataType()==0){
+			f<<"INT \t";
+		}
+                f<<"Line Number:";
+                f<<(*it)->getLineNumber()<<endl;
+        }
 }
 
 TableScope SymbolTable::getTableScope()
@@ -87,9 +94,14 @@ SymbolTable::SymbolTable(){}
 SymbolTable::~SymbolTable(){}
 
 SymbolTableEntry& SymbolTable::getSymbolTableEntry(string variablename){
+	SymbolTableEntry  *x=NULL;
 	for(auto it=varTable.begin();it!=varTable.end();++it){
-		if((*it)->getVariableName()==variablename) return **it;
+		if((*it)->getVariableName()==variablename){
+			x=*it;
+			return **it;
+		}
 	}
+	return *x;
 }
 
 token::token(string s){

@@ -40,7 +40,8 @@ assignment_stmt:ID '=' ID ';' {cout<<*$1<<"="<<*$3<<endl;}
 return_stmt:RETURN NUM ';'       {cout<<"0"<<endl;}	
 optional_local_var_decl: |vardecl optional_local_var_decl {}
 ;
-vardecl:INTEGER ID ';' {gst->pushSymbol(new SymbolTableEntry(*$2,$1,lineno));
+vardecl:INTEGER ID ';' {
+       gst->pushSymbol(new SymbolTableEntry(*$2,$1,lineno));
 			$$=&(gst->getSymbolTableEntry(*$2));       
 };
 %%
