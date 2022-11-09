@@ -73,6 +73,7 @@
         using namespace std;
 	#include <string>
 	#include "symboltable.hh"
+	#include "ast.hh"
 	extern FILE* yyin;
         extern int yylex();
 	extern list<token *> tok;
@@ -80,7 +81,7 @@
 	void yyerror(char *);
 	SymbolTable *gst=new SymbolTable();
 
-#line 84 "y.tab.c"
+#line 85 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -147,14 +148,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "tinyl1.y"
+#line 14 "tinyl1.y"
 
        string *cval;
         int ival;
 	SymbolTableEntry *ste;
+	Ast *a;
 	DataType dt;
 
-#line 158 "y.tab.c"
+#line 160 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -583,8 +585,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    28,    28,    30,    32,    33,    34,    35,    37,    38,
-      39,    40,    41,    41,    43
+       0,    31,    31,    33,    35,    36,    37,    38,    40,    41,
+      44,    48,    49,    49,    51
 };
 #endif
 
@@ -1160,82 +1162,88 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: main_function  */
-#line 28 "tinyl1.y"
+#line 31 "tinyl1.y"
                       {cout<<"Stop"<<endl;}
-#line 1166 "y.tab.c"
+#line 1168 "y.tab.c"
     break;
 
   case 3: /* main_function: INTEGER ID '(' ')' '{' optional_local_var_decl stmt_list return_stmt '}'  */
-#line 30 "tinyl1.y"
+#line 33 "tinyl1.y"
                                                                                        {cout<<*(yyvsp[-7].cval)<<endl;}
-#line 1172 "y.tab.c"
+#line 1174 "y.tab.c"
     break;
 
   case 4: /* stmt_list: assignment_stmt  */
-#line 32 "tinyl1.y"
+#line 35 "tinyl1.y"
                           {}
-#line 1178 "y.tab.c"
+#line 1180 "y.tab.c"
     break;
 
   case 5: /* stmt_list: print_stmt  */
-#line 33 "tinyl1.y"
+#line 36 "tinyl1.y"
             {}
-#line 1184 "y.tab.c"
+#line 1186 "y.tab.c"
     break;
 
   case 6: /* stmt_list: assignment_stmt stmt_list  */
-#line 34 "tinyl1.y"
+#line 37 "tinyl1.y"
                            {}
-#line 1190 "y.tab.c"
+#line 1192 "y.tab.c"
     break;
 
   case 7: /* stmt_list: print_stmt stmt_list  */
-#line 35 "tinyl1.y"
+#line 38 "tinyl1.y"
                         {}
-#line 1196 "y.tab.c"
+#line 1198 "y.tab.c"
     break;
 
   case 8: /* print_stmt: PRINT ID ';'  */
-#line 37 "tinyl1.y"
+#line 40 "tinyl1.y"
                         {}
-#line 1202 "y.tab.c"
+#line 1204 "y.tab.c"
     break;
 
   case 9: /* assignment_stmt: ID '=' ID ';'  */
-#line 38 "tinyl1.y"
-                              {cout<<*(yyvsp[-3].cval)<<"="<<*(yyvsp[-1].cval)<<endl;}
-#line 1208 "y.tab.c"
+#line 41 "tinyl1.y"
+                              {(yyval.a)=new AssignmentAst(new NameAst(*(yyvsp[-3].cval),gst->getSymbolTableEntry(*(yyvsp[-3].cval)),lineno),new NameAst(*(yyvsp[-1].cval),gst->getSymbolTableEntry(*(yyvsp[-1].cval)),lineno),lineno);
+	       (yyval.a)->print(cout);
+	       cout<<*(yyvsp[-3].cval)<<"="<<*(yyvsp[-1].cval)<<endl;}
+#line 1212 "y.tab.c"
     break;
 
   case 10: /* assignment_stmt: ID '=' NUM ';'  */
-#line 39 "tinyl1.y"
-                    {cout<<*(yyvsp[-3].cval)<<"="<<(yyvsp[-1].ival)<<endl;}
-#line 1214 "y.tab.c"
+#line 44 "tinyl1.y"
+                    {DataType dt=INT;
+(yyval.a)=new AssignmentAst(new NameAst(*(yyvsp[-3].cval),gst->getSymbolTableEntry(*(yyvsp[-3].cval)),lineno),new NumberAst<int>((yyvsp[-1].ival),dt,lineno),lineno);
+(yyval.a)->print(cout);
+cout<<*(yyvsp[-3].cval)<<"="<<(yyvsp[-1].ival)<<endl;}
+#line 1221 "y.tab.c"
     break;
 
   case 11: /* return_stmt: RETURN NUM ';'  */
-#line 40 "tinyl1.y"
+#line 48 "tinyl1.y"
                                  {cout<<"0"<<endl;}
-#line 1220 "y.tab.c"
+#line 1227 "y.tab.c"
     break;
 
   case 13: /* optional_local_var_decl: vardecl optional_local_var_decl  */
-#line 41 "tinyl1.y"
+#line 49 "tinyl1.y"
                                                           {}
-#line 1226 "y.tab.c"
+#line 1233 "y.tab.c"
     break;
 
   case 14: /* vardecl: INTEGER ID ';'  */
-#line 43 "tinyl1.y"
+#line 51 "tinyl1.y"
                        {
+
        gst->pushSymbol(new SymbolTableEntry(*(yyvsp[-1].cval),(yyvsp[-2].dt),lineno));
 			(yyval.ste)=&(gst->getSymbolTableEntry(*(yyvsp[-1].cval)));       
 }
-#line 1235 "y.tab.c"
+#line 1243 "y.tab.c"
     break;
 
 
-#line 1239 "y.tab.c"
+#line 1247 "y.tab.c"
 
       default: break;
     }
@@ -1428,7 +1436,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 47 "tinyl1.y"
+#line 56 "tinyl1.y"
 
 
 void yyerror(char *s){
@@ -1443,4 +1451,5 @@ int main(int argc,char *argv[]){
 		(*it)->print(cout);
 	}
 	gst->print(cout);
+	
 }

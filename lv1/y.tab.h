@@ -77,14 +77,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "tinyl1.y"
+#line 14 "tinyl1.y"
 
        string *cval;
         int ival;
 	SymbolTableEntry *ste;
+	Ast *a;
 	DataType dt;
 
-#line 88 "y.tab.h"
+#line 89 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

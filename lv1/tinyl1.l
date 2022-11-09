@@ -4,6 +4,7 @@
 	#include <list>
 	#include<string>  
     	#include "symboltable.hh"
+	#include "ast.hh"
 	#include "y.tab.h"
   	list<token *> tok;
 	int lineno=0;
