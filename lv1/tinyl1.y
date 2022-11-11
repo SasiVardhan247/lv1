@@ -67,5 +67,5 @@ int main(int argc,char *argv[]){
 		(*it)->print(cout);
 	}
 	gst->print(cout);
-	
+	return 0;	
 }

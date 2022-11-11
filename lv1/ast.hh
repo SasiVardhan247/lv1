@@ -57,7 +57,7 @@ class NameAst:public Ast
 	SymbolTableEntry * variablesymbolentry;
 
 public:
-	NameAst(string &, SymbolTableEntry &, int );
+	NameAst(string &,SymbolTableEntry &, int );
 	~NameAst();
 	DataType getDataType();
 	SymbolTableEntry & getSymbolEntry();
