@@ -17,7 +17,7 @@ bool Ast::typeCheckAst(){
 }
 
 void Ast::print(ostream &o){
-        o<<"NodeDataType:\t"<<nodeDataType<<endl;
+        o<<"DATATYPE: "<<nodeDataType<<" LineNO: "<<lineNumber<<endl;
 }
 
 AssignmentAst::AssignmentAst(Ast *l,Ast *r,int ln){
@@ -52,7 +52,11 @@ PrintAst::PrintAst(Ast* v,int ln){
 
 PrintAst::~PrintAst(){}
 
-void PrintAst::print(ostream & file_buffer){
+void PrintAst::print(ostream & o){
+    o<<"Print:"<<endl;
+	o<<"\t";
+	var->print(o);
+	o<<endl;
 }
 
 NameAst::NameAst(string & s,SymbolTableEntry & ste,int ln){
@@ -87,7 +91,7 @@ template <class T> DataType NumberAst<T>::getDataType(){
 }
 
 template <class T> void NumberAst<T>::print(ostream &o){
-        o<<"Number:\t"<<constant;
+        o<<"Number:\t"<<constant<<endl;
 }
 
 template class NumberAst<int>;
@@ -97,6 +101,6 @@ ReturnAst::ReturnAst(int line){
 }
 
 void ReturnAst::print(ostream &o){
-
+    o<<"LINENUMBER: "<<lineNumber<<endl;
 }
 

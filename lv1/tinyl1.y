@@ -26,7 +26,7 @@
 %token <ival> NUM
 
 %type <ste> vardecl
-%type <a> assignment_stmt 
+%type <a> assignment_stmt return_stmt print_stmt
 %%
 program:main_function {cout<<"Stop"<<endl;}
 ;
@@ -37,15 +37,19 @@ stmt_list:assignment_stmt {}
 |assignment_stmt stmt_list {}
 |print_stmt stmt_list   {}
 ;
-print_stmt:PRINT ID ';' {};
+print_stmt:PRINT ID ';' {$$=new PrintAst(new NameAst(*$2,gst->getSymbolTableEntry(*$2),lineno),lineno);
+	  $$->print(cout);};
 assignment_stmt:ID '=' ID ';' {$$=new AssignmentAst(new NameAst(*$1,gst->getSymbolTableEntry(*$1),lineno),new NameAst(*$3,gst->getSymbolTableEntry(*$3),lineno),lineno);
 	       $$->print(cout);
-	       cout<<*$1<<"="<<*$3<<endl;}
+	       cout<<*$1<<"="<<*$3<<endl;
+}
 |ID '=' NUM ';'     {DataType dt=INT;
 $$=new AssignmentAst(new NameAst(*$1,gst->getSymbolTableEntry(*$1),lineno),new NumberAst<int>($3,dt,lineno),lineno);
 $$->print(cout);
-cout<<*$1<<"="<<$3<<endl;}
-return_stmt:RETURN NUM ';'       {cout<<"0"<<endl;}	
+cout<<*$1<<"="<<$3<<endl;
+}
+return_stmt:RETURN NUM ';'       {$$=new ReturnAst(lineno);
+	   $$->print(cout);}	
 optional_local_var_decl: |vardecl optional_local_var_decl {}
 ;
 vardecl:INTEGER ID ';' {
