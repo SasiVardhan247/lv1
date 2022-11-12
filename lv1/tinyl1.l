@@ -2,10 +2,12 @@
         #include <iostream>
 	using namespace std; 
 	#include <list>
+	#include <map>
 	#include<string>  
     	#include "symboltable.hh"
 	#include "ast.hh"
 	#include "Function.hh"
+	#include "program.hh"
 	#include "y.tab.h"
   	list<token *> tok;
 	int lineno=0;
