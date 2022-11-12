@@ -1,9 +1,11 @@
 %{
         #include <iostream>
         using namespace std;
-	#include <string>
+	#include <string.h>
 	#include "symboltable.hh"
+	#include "Function.hh"
 	#include "ast.hh"
+	#include <map>
 	extern FILE* yyin;
         extern int yylex();
 	extern list<token *> tok;
@@ -16,6 +18,8 @@
         int ival;
 	SymbolTableEntry *ste;
 	Ast *a;
+	list<Ast*> *la;
+	Function *f;
 	DataType dt;
 }
 %start program
@@ -27,18 +31,36 @@
 
 %type <ste> vardecl
 %type <a> assignment_stmt return_stmt print_stmt
+%type <f> main_function
+%type <la> stmt_list
+
 %%
-program:main_function {cout<<"Stop"<<endl;}
+program:main_function {cout<<"Accepted"<<endl;}
 ;
-main_function:INTEGER ID '(' ')' '{' optional_local_var_decl stmt_list return_stmt '}' {cout<<*$2<<endl;}
+main_function:INTEGER ID '(' ')' '{' optional_local_var_decl stmt_list return_stmt '}' {$$=new Function($1,*$2,lineno);
+//	$$->setAstList(*$7);	     
+	$$->print(cout);
+cout<<*$2<<endl;}
 ;
-stmt_list:assignment_stmt {}
-|print_stmt {}
-|assignment_stmt stmt_list {}
-|print_stmt stmt_list   {}
+stmt_list:assignment_stmt {
+	 $$=new list<Ast*>();
+	 ($$)->push_back($1);
+}
+|print_stmt {
+($$)->push_back($1);}
+|assignment_stmt stmt_list {
+	($2)->push_back($1);
+	$$=$2;
+}
+|print_stmt stmt_list   {
+	($2)->push_back($1);
+	$$=$2;
+}
 ;
 print_stmt:PRINT ID ';' {$$=new PrintAst(new NameAst(*$2,gst->getSymbolTableEntry(*$2),lineno),lineno);
-	  $$->print(cout);};
+	  $$->print(cout);
+	
+};
 assignment_stmt:ID '=' ID ';' {$$=new AssignmentAst(new NameAst(*$1,gst->getSymbolTableEntry(*$1),lineno),new NameAst(*$3,gst->getSymbolTableEntry(*$3),lineno),lineno);
 	       $$->print(cout);
 	       cout<<*$1<<"="<<*$3<<endl;
@@ -53,7 +75,6 @@ return_stmt:RETURN NUM ';'       {$$=new ReturnAst(lineno);
 optional_local_var_decl: |vardecl optional_local_var_decl {}
 ;
 vardecl:INTEGER ID ';' {
-
        gst->pushSymbol(new SymbolTableEntry(*$2,$1,lineno));
 			$$=&(gst->getSymbolTableEntry(*$2));       
 };

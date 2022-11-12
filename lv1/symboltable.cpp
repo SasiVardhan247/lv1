@@ -1,6 +1,8 @@
 #include <iostream>
 #include "symboltable.hh"
 #include <list>
+#include <string.h>
+
 using namespace std;
 
 void SymbolTable::print(ostream &f)
@@ -94,6 +96,7 @@ SymbolTable::SymbolTable(){}
 SymbolTable::~SymbolTable(){}
 
 SymbolTableEntry& SymbolTable::getSymbolTableEntry(string variablename){
+//	list<SymbolTableEntry*>::iterator it;
 	SymbolTableEntry  *x=NULL;
 	for(auto it=varTable.begin();it!=varTable.end();++it){
 		if((*it)->getVariableName()==variablename){

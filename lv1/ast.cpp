@@ -37,12 +37,12 @@ void AssignmentAst::print(ostream & o){
     // rhs->print(filebuffer);
     // filebuffer<<"Line:\t"<<lineNumber<<endl;
     o<<"Asgn:"<<endl;
-	o<<"\tLHS "<<"( ";
+	o<<"\tLHS :";
 	lhs->print(o);
-	o<<" )"<<endl;
-	o<<"\tRHS "<<"( ";
+	o<<"\n";
+	o<<"\tRHS :";
 	rhs->print(o);
-	o<<" )"<<endl;
+	o<<endl;
 }
 
 PrintAst::PrintAst(Ast* v,int ln){
