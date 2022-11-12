@@ -21,7 +21,7 @@
 	list<Ast*> *la;
 	Function *f;
 	DataType dt;
-}
+};
 %start program
 %token <dt> INTEGER
 %token RETURN
@@ -38,7 +38,7 @@
 program:main_function {cout<<"Accepted"<<endl;}
 ;
 main_function:INTEGER ID '(' ')' '{' optional_local_var_decl stmt_list return_stmt '}' {$$=new Function($1,*$2,lineno);
-//	$$->setAstList(*$7);	     
+	$$->setAstList(*$7);	     
 	$$->print(cout);
 cout<<*$2<<endl;}
 ;

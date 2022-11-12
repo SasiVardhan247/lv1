@@ -10,7 +10,7 @@ Function::Function(string &s,DataType dt,int l)
         returnType=dt;
         lineno=l;
 }
-
+Function::Function(){}
 
 Function::~Function()
 {
@@ -31,7 +31,7 @@ void Function::setLocalList(SymbolTable &st)
 
 SymbolTable Function::getLocalList()
 {
-        return statementlist;
+        return statementList;
 }
 
 
@@ -41,13 +41,13 @@ void Function::setAstList(list<Ast *> &sa)
 }
 
 
-Datatype Function::getReturnType()
+DataType Function::getReturnType()
 {
         return returnType;
 }
 
 
-void Function::setReturnType(Datatype dt)
+void Function::setReturnType(DataType dt)
 {
         returnType=dt;
 }

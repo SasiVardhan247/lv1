@@ -1,5 +1,5 @@
 tinyc:par.o lex.o symbol.o ast.o func.o
-	g++ -o tinyc par.o lex.o  symbol.o func.o ast.o -ll -ly
+	g++ -o tinyc par.o lex.o  symbol.o func.o ast.o -ll
 
 func.o:Function.cpp
 	g++ -c Function.cpp -o func.o
@@ -13,6 +13,6 @@ y.tab.c y.tab.h:tinyl1.y ast.hh Function.hh
 	yacc -d tinyl1.y
 lex.o:lex.yy.c
 	g++ -c lex.yy.c -o lex.o
-lex.yy.c:tinyl1.l symboltable.hh
+lex.yy.c:tinyl1.l symboltable.hh Function.hh
 	lex tinyl1.l
 
