@@ -18,8 +18,8 @@
         int ival;
 	SymbolTableEntry *ste;
 	Ast *a;
-	list<Ast*> *la;
 	Function *f;
+	list<Ast*> *la;
 	DataType dt;
 };
 %start program
@@ -46,7 +46,7 @@ stmt_list:assignment_stmt {
 	 $$=new list<Ast*>();
 	 ($$)->push_back($1);
 }
-|print_stmt {
+|print_stmt {$$=new list<Ast *>();
 ($$)->push_back($1);}
 |assignment_stmt stmt_list {
 	($2)->push_back($1);

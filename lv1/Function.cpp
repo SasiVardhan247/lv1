@@ -1,16 +1,20 @@
 #include<iostream>
 using namespace std;
-#include "ast.hh"
 #include "symboltable.hh"
+#include "ast.hh"
 #include "Function.hh"
 
-Function::Function(string &s,DataType dt,int l)
+Function::Function(DataType dt,string s,int l)
 {
         name=s;
         returnType=dt;
         lineno=l;
 }
-Function::Function(){}
+Function::Function(){
+	returnType=INT;
+	name="";
+	lineno=0;
+}
 
 Function::~Function()
 {
@@ -31,7 +35,7 @@ void Function::setLocalList(SymbolTable &st)
 
 SymbolTable Function::getLocalList()
 {
-        return statementList;
+        return localSymbolTable;
 }
 
 

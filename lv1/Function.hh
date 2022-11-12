@@ -1,6 +1,6 @@
 #ifndef Function_HH
 #define Function_HH
-class Ast;
+#include "ast.hh"
 class Function
 {
 	DataType returnType;

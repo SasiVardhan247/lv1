@@ -5,6 +5,7 @@
 	#include<string>  
     	#include "symboltable.hh"
 	#include "ast.hh"
+	#include "Function.hh"
 	#include "y.tab.h"
   	list<token *> tok;
 	int lineno=0;

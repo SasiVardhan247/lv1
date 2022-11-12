@@ -459,11 +459,12 @@ char *yytext;
 	#include<string>  
     	#include "symboltable.hh"
 	#include "ast.hh"
+	#include "Function.hh"
 	#include "y.tab.h"
   	list<token *> tok;
 	int lineno=0;
-#line 466 "lex.yy.c"
 #line 467 "lex.yy.c"
+#line 468 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -680,9 +681,9 @@ YY_DECL
 		}
 
 	{
-#line 13 "tinyl1.l"
+#line 14 "tinyl1.l"
 
-#line 686 "lex.yy.c"
+#line 687 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -741,22 +742,22 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 14 "tinyl1.l"
+#line 15 "tinyl1.l"
 {tok.push_back(new token("int"));cout<<yytext<<endl;yylval.dt=INT; return INTEGER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "tinyl1.l"
+#line 16 "tinyl1.l"
 {tok.push_back(new token("return"));return RETURN;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "tinyl1.l"
+#line 17 "tinyl1.l"
 {tok.push_back(new token("print"));return PRINT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 17 "tinyl1.l"
+#line 18 "tinyl1.l"
 {cout<<yytext<<endl;
                         yylval.cval=new string(yytext);
 			tok.push_back(new token(*yylval.cval));                     
@@ -764,7 +765,7 @@ return ID;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 21 "tinyl1.l"
+#line 22 "tinyl1.l"
 {cout<<yytext<<endl;
 tok.push_back(new token(yytext)); 
 yylval.ival=atoi(yytext);
@@ -772,31 +773,31 @@ return NUM;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 25 "tinyl1.l"
+#line 26 "tinyl1.l"
 {tok.push_back(new token(yytext));cout<<yytext<<endl; return yytext[0];}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 26 "tinyl1.l"
+#line 27 "tinyl1.l"
 {}
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 27 "tinyl1.l"
+#line 28 "tinyl1.l"
 {lineno++;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 28 "tinyl1.l"
+#line 29 "tinyl1.l"
 {cout<<"print"<<endl;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 29 "tinyl1.l"
+#line 30 "tinyl1.l"
 ECHO;
 	YY_BREAK
-#line 800 "lex.yy.c"
+#line 801 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1801,7 +1802,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 29 "tinyl1.l"
+#line 30 "tinyl1.l"
 
 
 
